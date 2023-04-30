@@ -56,11 +56,11 @@ def tekrar():
 
         print(Fore.RED+"Lütfen Doğru işlem giriniz!")
 
-        time.sleep(1)
+        time.sleep(0.5)
 
         os.system("cls")
 
-        program()
+        tekrar()
 
 
 
@@ -136,6 +136,10 @@ def program():
 
                     gider_miktari = float(input(Fore.GREEN+"Gider miktarını girin\n-->"))
 
+                    while gider_miktari >= gelir_miktari:
+                        print(Fore.RED+"Gider miktarı gelir miktarına eşit veya büyük olamaz!")
+                        gider_miktari = float(input(Fore.GREEN+"Gider miktarını girin\n-->"))
+
                     giderler.append(gider_miktari)
 
                     print(Fore.GREEN+"Gider kaydedildi.")
@@ -153,14 +157,27 @@ def program():
                     os.system("cls")
 
             elif secim == "3":
-
+                
+            
                 # KDV'siz toplam gelir ve gider hesaplaması
 
                 toplam_gelir = sum(gelirler)
 
                 toplam_gider = (sum(giderler)) 
 
-                kdv = input("KDV hesaplaması için kdv oranını giriniz(0.18)")
+                if toplam_gelir <=0:
+                    print(Fore.RED+"Hesaplanacak bir değer bulunamadı")
+                    time.sleep(1)
+                    os.system("cls")
+                    program()
+
+                if toplam_gider <=0:
+                    print(Fore.RED+"Hesaplanacak bir değer bulunamadı")
+                    time.sleep(1)
+                    os.system("cls")
+                    program()
+
+                kdv = input(Fore.RED+"KDV hesaplaması için kdv oranını giriniz(0.18)\n-->")
 
                 # KDV tutarı hesaplaması
 
@@ -176,7 +193,7 @@ def program():
 
                 toplam_gider_kdvli = toplam_gider + kdv_tutari2
 
-                vergi = input("Vergi hesaplaması için vergi payını giriniz(0.2)")
+                vergi = input(Fore.RED+"Vergi hesaplaması için vergi payını giriniz(0.2)\n-->")
 
                 # Vergi payı hesaplaması
 
@@ -203,19 +220,19 @@ def program():
 
                 # Bilanço tablosunu oluştur
 
-                print(Fore.GREEN + Style.BRIGHT + "\n----------------------------------------------Bilanço----------------------------------------------")
+                print(Fore.GREEN + Style.BRIGHT + "\n----------------------------------------------Bilanço-----------------------------------------------")
 
-                print("|{:<14s}|{:>14s}|{:>14s}|{:>14s}|{:>14s}|{:>14s}|{:>13s}|".format(Fore.GREEN + Style.BRIGHT + "Kalem   ", "KDV'siz Miktar", "KDV'li Miktar", "KDV", "Vergi Payı",f"KDV:{kdv}",f"Vergi Payı:{vergi}"))
+                print(Fore.CYAN+"|{:<14s}|{:>14s}|{:>14s}|{:>14s}|{:>14s}|{:>14s}|{:>13s}|".format(Fore.CYAN + Style.BRIGHT + "Kalem   ", "KDV'siz Miktar", "KDV'li Miktar", "KDV", "Vergi Payı",f"KDV:{kdv}",f"Vergi Payı:{vergi}"))
 
-                print("-" * 99)
+                print(Fore.GREEN +"-" * 100)
 
-                print("|{:<14s}|{:>14.2f}|{:>14.2f}|{:>14.2f}|{:>14.2f}|".format(Fore.GREEN + Style.BRIGHT + "Gelirler", toplam_gelir, toplam_gelir_kdvli, gelir_kdv, gelir_vergi_payi))
+                print(Fore.CYAN +"|{:<14s}|{:>14.2f}|{:>14.2f}|{:>14.2f}|{:>14.2f}|".format(Fore.CYAN + Style.BRIGHT + "Gelirler", toplam_gelir, toplam_gelir_kdvli, gelir_kdv, gelir_vergi_payi))
 
-                print("|{:<14s}|{:>14.2f}|{:>14.2f}|{:>14.2f}|{:>14.2f}|".format(Fore.GREEN + Style.BRIGHT + "Giderler", toplam_gider, toplam_gider_kdvli, gider_kdv, gider_vergi_payi))
+                print(Fore.CYAN+"|{:<14s}|{:>14.2f}|{:>14.2f}|{:>14.2f}|{:>14.2f}|".format(Fore.CYAN + Style.BRIGHT + "Giderler", toplam_gider, toplam_gider_kdvli, gider_kdv, gider_vergi_payi))
 
-                print("|{:<14s}|{:>14.2f}|{:>14.2f}|{:>14.2f}|{:>14.2f}|".format(Fore.GREEN + Style.BRIGHT + "Bilanço ", toplam_gelir - toplam_gider, toplam_gelir_kdvli - toplam_gider_kdvli, gelir_kdv-gider_kdv, gelir_vergi_payi - gider_vergi_payi)) 
+                print(Fore.CYAN+"|{:<14s}|{:>14.2f}|{:>14.2f}|{:>14.2f}|{:>14.2f}|".format(Fore.CYAN + Style.BRIGHT + "Bilanço ", toplam_gelir - toplam_gider, toplam_gelir_kdvli - toplam_gider_kdvli, gelir_kdv-gider_kdv, gelir_vergi_payi - gider_vergi_payi)) 
 
-                print("-" * 99)
+                print(Fore.GREEN +"-" * 100)
 
                 print(Style.RESET_ALL)
 
